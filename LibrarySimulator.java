@@ -13,7 +13,7 @@ public class LibrarySimulator {
         boolean running = true;
 
         while (running) {
-
+         // Main menu for picking member or admin
             System.out.println("\n========== Library Simulation ==========");
             System.out.println("Select option:"); 
             System.out.println("1. Login as " + user1.getName());
@@ -28,7 +28,7 @@ public class LibrarySimulator {
 
             
             if (choice >= 1 && choice <= 3) {
-
+              // pick the current member
                 Member current;
                 if (choice == 1) current = user1;
                 else if (choice == 2) current = user2;
@@ -50,7 +50,7 @@ public class LibrarySimulator {
 
                     int op = scanner.nextInt();
                     scanner.nextLine();
-
+                    // do the selected action
                     switch (op) {
                         case 1:
                             current.viewBorrowedCount();
@@ -75,6 +75,7 @@ public class LibrarySimulator {
 
             
             } else if (choice == 4) {
+                // admin login
                System.out.print("Enter admin password: ");  
                 String password = scanner.nextLine();  
   
@@ -85,6 +86,7 @@ public class LibrarySimulator {
                     System.out.println("\n--- Admin Menu ---");
 
                     while (adminActive) {
+                         // admin options
                         System.out.println("1. View Total Revenue");
                         System.out.println("2. View Most Frequent Operation"); 
                         System.out.println("3. Exit Admin");
@@ -108,14 +110,14 @@ public class LibrarySimulator {
                                 System.out.println("Most frequent: Equal (Tie)");
 
                         } else if (adminChoice == 3) {
-                            adminActive = false;
+                            adminActive = false; // exit admin menu
                         } else {
                             System.out.println("Invalid choice.");
                         }
                     }
                 } 
             } else if (choice == 5) {
-
+              // exit program and show global stats
                 System.out.println("Exiting program...");
                 running = false;
 
