@@ -1,3 +1,9 @@
+/*
+ * https://github.com/faris-stat/CSC-111-Phase2
+ * Project 2: Members Library Simulation (CSC 111)
+ * Group Members:
+ * 1. Faris Abdulwahab Alatallah - 445102435
+ */
 // Library member class: tracks info and what they do in a session
 public class Member {
 
