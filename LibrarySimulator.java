@@ -2,7 +2,7 @@
  * https://github.com/faris-stat/CSC-111-Phase2
  * Project2: Library Simulation 2 (CSC 111)
  * Group Members:
- * 1. Faris Abdulwahab - 445102435
+ * 1. Faris Abdulwahab Alatallah - 445102435
  */
 import java.util.Scanner;
 
