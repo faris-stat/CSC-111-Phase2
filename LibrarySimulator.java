@@ -2,54 +2,56 @@ import java.util.Scanner;
 
 public class LibrarySimulator {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
-        // Predefined members (Your real data)
+        // Predefined members
         Member user1 = new Member(1001, "Faris Abdulwahab", 0);
         Member user2 = new Member(1002, "Abdullah Abdulaziz", 0);
         Member user3 = new Member(1003, "Raed Sultan", 0);
 
         boolean running = true;
-        // Main Loop
+
         while (running) {
-            System.out.println("\n========== Welcome to the Library Simulation ==========");
-            System.out.println("Select an option:");
-            System.out.println("1. Login as " + user1.getName() + " (ID: " + user1.getId() + ")");
-            System.out.println("2. Login as " + user2.getName() + " (ID: " + user2.getId() + ")");
-            System.out.println("3. Login as " + user3.getName() + " (ID: " + user3.getId() + ")");
+
+            System.out.println("\n========== Library Simulation ==========");
+            System.out.println("Select option:"); 
+            System.out.println("1. Login as " + user1.getName());
+            System.out.println("2. Login as " + user2.getName());
+            System.out.println("3. Login as " + user3.getName());
             System.out.println("4. Login as Administrator");
-            System.out.println("5. Exit Program");
-            System.out.print("Enter your choice: ");
+            System.out.println("5. Exit");
+            System.out.print("Enter choice: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine(); // consume newline 
 
+            
             if (choice >= 1 && choice <= 3) {
-                Member current;
-                if (choice == 1)
-                    current = user1;
-                else if (choice == 2)
-                    current = user2;
-                else
-                    current = user3;
 
-                // Start new session stats
+                Member current;
+                if (choice == 1) current = user1;
+                else if (choice == 2) current = user2;
+                else current = user3;
+
+                // reset session counters each login
                 current.reset();
 
                 boolean sessionActive = true;
+
                 while (sessionActive) {
-                    System.out.println("\nWelcome, " + current.getName() + "!");
-                    System.out.println("1. View Borrowed Books Count");
+                    System.out.println("\n--- Welcome, " + current.getName() + " ---");
+                    System.out.println("1. View Borrowed Books");
                     System.out.println("2. Borrow Book");
                     System.out.println("3. Return Book");
                     System.out.println("4. View Session Summary");
                     System.out.println("5. Exit to Main Menu");
-                    System.out.print("Choose an option: ");
+                    System.out.print("Enter choice: ");
 
-                    int userOption = scanner.nextInt();
+                    int op = scanner.nextInt();
                     scanner.nextLine();
 
-                    switch (userOption) {
+                    switch (op) {
                         case 1:
                             current.viewBorrowedCount();
                             break;
@@ -63,24 +65,68 @@ public class LibrarySimulator {
                             current.displayStatistics();
                             break;
                         case 5:
-                            System.out.println("Session ended. Total books currently borrowed: " + current.getBorrowedCount());
+                            System.out.println("Session ended. Books now: " + current.getBorrowedCount());
                             sessionActive = false;
                             break;
                         default:
-                            System.out.println("Invalid option. Try again.");
-                            break;
+                            System.out.println("Invalid option."); 
                     }
                 }
 
+            
             } else if (choice == 4) {
-                // For the afternoon upload: Admin is under construction
-                System.out.println(">> Admin system is currently under maintenance. Please come back later.");
+               System.out.print("Enter admin password: ");  
+                String password = scanner.nextLine();  
+  
+                if (!password.equals("admin")) {  
+                    System.out.println("Invalid password. Access denied.");  
+                } else {  
+                    boolean adminActive = true;
+                    System.out.println("\n--- Admin Menu ---");
 
+                    while (adminActive) {
+                        System.out.println("1. View Total Revenue");
+                        System.out.println("2. View Most Frequent Operation"); 
+                        System.out.println("3. Exit Admin");
+                        System.out.print("Enter choice: ");
+
+                        int adminChoice = scanner.nextInt();
+                        scanner.nextLine(); 
+
+                        if (adminChoice == 1) {
+                            System.out.printf("Total Revenue: %.2f\n", Member.TotalRevenue);
+
+                        } else if (adminChoice == 2) {
+                            System.out.println("Total Borrows: " + Member.TotalBorrows);
+                            System.out.println("Total Returns: " + Member.TotalReturns);
+                            
+                            if (Member.TotalBorrows > Member.TotalReturns) 
+                                System.out.println("Most frequent: Borrowing");
+                            else if (Member.TotalReturns > Member.TotalBorrows) 
+                                System.out.println("Most frequent: Returning");
+                            else 
+                                System.out.println("Most frequent: Equal (Tie)");
+
+                        } else if (adminChoice == 3) {
+                            adminActive = false;
+                        } else {
+                            System.out.println("Invalid choice.");
+                        }
+                    }
+                } 
             } else if (choice == 5) {
-                System.out.println("Thank you for using the Library Simulation. Goodbye!");
+
+                System.out.println("Exiting program...");
                 running = false;
+
+                System.out.println("\n=== Global Statistics ===");
+                System.out.printf("Total Revenue: %.2f\n", Member.TotalRevenue);
+                System.out.println("Total Borrows: " + Member.TotalBorrows);
+                System.out.println("Total Returns: " + Member.TotalReturns);
+                System.out.println("Total View Borrowed Count: " + Member.TotalViewBorrowed);
+
             } else {
-                System.out.println("Invalid option. Try again.");
+                System.out.println("Invalid choice. Try again.");
             }
         }
 
